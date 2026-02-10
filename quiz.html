@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OpenGradient Advanced Learning Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      color: #111;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 48px;
+      height: 48px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .question {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+
+    .options button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      cursor: pointer;
+      background: #f9f9f9;
+    }
+
+    .options button:hover {
+      background: #eee;
+    }
+
+    .correct {
+      background: #d4f7d4 !important;
+      border-color: #2ecc71;
+    }
+
+    .wrong {
+      background: #ffd6d6 !important;
+      border-color: #e74c3c;
+    }
+
+    .explanation {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .next-btn {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: #6a11cb;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .next-btn:hover {
+      opacity: 0.9;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="opengradient-logo.png" alt="OpenGradient" />
+      <h1>OpenGradient Advanced Learning Quiz</h1>
+    </div>
+
+    <div id="quiz"></div>
+
+    <div class="footer">
+      Built by
+      <a href="https://x.com/TheEncryptedAnt" target="_blank">
+        @TheEncryptedAnt
+      </a>
+      ·
+      <a href="https://docs.opengradient.ai/" target="_blank">
+        Learn more in Docs
+      </a>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+
+  <script>
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    const quizEl = document.getElementById("quiz");
+
+    function loadQuestion() {
+      answered = false;
+      const q = questions[current];
+
+      quizEl.innerHTML = `
+        <div class="question">
+          ❓ Question ${current + 1} of ${questions.length}<br><br>
+          ${q.question}
+        </div>
+        <div class="options">
+          ${q.options
+            .map(
+              (opt, i) =>
+                `<button onclick="selectOption(${i}, this)">${opt}</button>`
+            )
+            .join("")}
+        </div>
+        <div id="explanation" class="explanation"></div>
+      `;
+    }
+
+    function selectOption(index, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[current];
+      const buttons = document.querySelectorAll(".options button");
+
+      buttons.forEach((b, i) => {
+        if (i === q.correctIndex) b.classList.add("correct");
+        if (i === index && i !== q.correctIndex) b.classList.add("wrong");
+        b.disabled = true;
+      });
+
+      if (index === q.correctIndex) score++;
+
+      document.getElementById("explanation").innerHTML = `
+        <strong>Explanation:</strong><br>${q.explanation}
+        <br><br>
+        <button class="next-btn" onclick="nextQuestion()">Next</button>
+      `;
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      quizEl.innerHTML = `
+        <h2>🎉 Quiz Completed!</h2>
+        <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
+        <p>
+          <a href="https://docs.opengradient.ai/" target="_blank">
+            👉 Learn more from OpenGradient Docs
+          </a>
+        </p>
+      `;
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
