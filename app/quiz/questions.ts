@@ -13,11 +13,24 @@ export const questions: Question[] = [
     options: [
       "AI content generation",
       "Centralized AI hosting",
-      "Verifiable and transparent AI compute on-chain",
+      "Decentralized AI computation",
       "GPU rental marketplace"
     ],
     correctIndex: 2,
     explanation:
-      "OpenGradient focuses on bringing AI compute on-chain with verifiability and transparency."
+      "OpenGradient focuses on decentralized AI computation rather than centralized hosting."
+  },
+  {
+    id: 2,
+    question: "Which role does the community play in OpenGradient?",
+    options: [
+      "Only marketing",
+      "Passive users",
+      "Active contributors and validators",
+      "No role"
+    ],
+    correctIndex: 2,
+    explanation:
+      "The OpenGradient ecosystem is community-driven with contributors playing an active role."
   }
 ];
