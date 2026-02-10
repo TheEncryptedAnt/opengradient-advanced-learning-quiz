@@ -1,167 +1,113 @@
-const questions = [
-{
-q:"What is the core vision of OpenGradient?",
-options:[
-"Centralized AI SaaS",
-"Decentralized ecosystem for AI models, data & compute",
-"AI trading bots",
-"NFT marketplace"
-],
-answer:1,
-explain:"OpenGradient focuses on decentralized collaboration across AI models, data and computation."
-},
-{
-q:"What is the primary purpose of the OpenGradient Model Hub?",
-options:[
-"NFT hosting",
-"Cloud storage",
-"Explore, test and use AI models",
-"Social media tools"
-],
-answer:2,
-explain:"The Model Hub allows users and developers to explore and integrate AI models."
-},
-{
-q:"Why is decentralization important in OpenGradient?",
-options:[
-"Higher fees",
-"Slower development",
-"Reduced single points of failure",
-"Restricted access"
-],
-answer:2,
-explain:"Decentralization improves resilience and removes central control risks."
-},
-{
-q:"How are community contributions officially tracked?",
-options:[
-"Discord DMs",
-"Wallet snapshots",
-"Weekly Notion-based submissions",
-"Message count"
-],
-answer:2,
-explain:"OpenGradient uses structured Notion tracking for transparent reviews."
-},
-{
-q:"Which contribution best aligns with earning ALPHA OG?",
-options:[
-"Posting gm",
-"Asking mods for roles",
-"Using products + educational content",
-"Being early only"
-],
-answer:2,
-explain:"ALPHA OG is earned through meaningful, high-signal contributions."
-},
-{
-q:"High-signal contribution means?",
-options:[
-"Reposting announcements",
-"Educational quizzes & explainers",
-"Spamming memes",
-"Staying silent"
-],
-answer:1,
-explain:"High-signal work educates and adds ecosystem value."
-},
-{
-q:"What does OpenGradient aim to reduce dependency on?",
-options:[
-"Community",
-"Decentralization",
-"Centralized providers",
-"Open source"
-],
-answer:2,
-explain:"The goal is reducing reliance on centralized AI infrastructure."
-},
-{
-q:"Which role benefits most from structured learning content?",
-options:[
-"Spammers",
-"Passive users",
-"New contributors",
-"Bots"
-],
-answer:2,
-explain:"Educational content helps onboard and upskill new contributors."
-},
-{
-q:"Which platform is used for public proof of work?",
-options:[
-"Telegram",
-"X (Twitter)",
-"Reddit",
-"Facebook"
-],
-answer:1,
-explain:"X is used for public contribution proof and visibility."
-},
-{
-q:"What type of quiz question is most valuable?",
-options:[
-"Random trivia",
-"Opinion based",
-"Docs-based applied questions",
-"Guessing games"
-],
-answer:2,
-explain:"Applied questions show real understanding of the protocol."
-},
-{
-q:"OpenGradient focuses on which AI layer?",
-options:[
-"Frontend only",
-"Infrastructure + compute",
-"Memes",
-"Marketing"
-],
-answer:1,
-explain:"The project focuses on AI infra, models, data and compute."
-},
-{
-q:"What improves contribution quality the most?",
-options:[
-"Message count",
-"Role requests",
-"Clear explanations",
-"Time spent online"
-],
-answer:2,
-explain:"Clear, educational explanations create lasting value."
-},
-{
-q:"What is discouraged in OpenGradient?",
-options:[
-"Feedback",
-"Education",
-"Low-effort spam",
-"Testing products"
-],
-answer:2,
-explain:"Low-effort spam adds noise without value."
-},
-{
-q:"Why are quizzes useful?",
-options:[
-"For fun only",
-"To farm XP",
-"To test and reinforce learning",
-"To waste time"
-],
-answer:2,
-explain:"Quizzes reinforce understanding and reveal knowledge gaps."
-},
-{
-q:"What defines ALPHA OG mindset?",
-options:[
-"Being early",
-"Being loud",
-"Being consistent & valuable",
-"Being silent"
-],
-answer:2,
-explain:"ALPHA OGs consistently deliver meaningful contributions."
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OpenGradient Quiz</title>
+<script src="questions.js"></script>
+<style>
+body{
+  margin:0;
+  font-family: Inter, Arial, sans-serif;
+  background:#020617;
+  color:#e5e7eb;
+  display:flex;
+  justify-content:center;
 }
-];
+.container{
+  max-width:620px;
+  padding:30px;
+}
+h2{margin-bottom:10px;}
+.option{
+  border:1px solid #334155;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+}
+.option.correct{background:#052e1b;border-color:#22c55e;}
+.option.wrong{background:#3f1d1d;border-color:#ef4444;}
+.explain{
+  font-size:13px;
+  margin-top:8px;
+  color:#c7d2fe;
+}
+button{
+  margin-top:18px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
+}
+a{color:#60a5fa;text-decoration:none;font-weight:600;}
+</style>
+</head>
+
+<body>
+<div class="container" id="app"></div>
+
+<script>
+let i=0,score=0,locked=false;
+const app=document.getElementById("app");
+
+function render(){
+  if(i>=questions.length){
+    app.innerHTML=`
+      <h2>Final Score</h2>
+      <p>You scored <b>${score}/${questions.length}</b></p>
+      <p>
+        Learn more at 
+        <a href="https://docs.opengradient.ai" target="_blank">
+          docs.opengradient.ai
+        </a>
+      </p>
+      <p>
+        Built by 
+        <a href="https://x.com/TheEncryptedAnt" target="_blank">
+          @TheEncryptedAnt
+        </a>
+      </p>`;
+    return;
+  }
+  const q=questions[i];
+  app.innerHTML=`<h2>Q${i+1}. ${q.q}</h2>`;
+  q.options.forEach((o,idx)=>{
+    const d=document.createElement("div");
+    d.className="option";
+    d.innerText=o;
+    d.onclick=()=>select(d,idx,q);
+    app.appendChild(d);
+  });
+}
+
+function select(el,idx,q){
+  if(locked)return;
+  locked=true;
+  const ops=document.querySelectorAll(".option");
+  ops.forEach(o=>o.onclick=null);
+
+  if(idx===q.answer){
+    el.classList.add("correct");
+    score++;
+  }else{
+    el.classList.add("wrong");
+    ops[q.answer].classList.add("correct");
+  }
+
+  const ex=document.createElement("div");
+  ex.className="explain";
+  ex.innerText=q.explain;
+  app.appendChild(ex);
+
+  const btn=document.createElement("button");
+  btn.innerText="Next";
+  btn.onclick=()=>{i++;locked=false;render();}
+  app.appendChild(btn);
+}
+
+render();
+</script>
+</body>
+</html>
