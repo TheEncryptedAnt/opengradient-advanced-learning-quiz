@@ -1,9 +1,8 @@
 export default function Home() {
   return (
-    <main style={{ padding: "40px", fontFamily: "sans-serif" }}>
-      <h1>OpenGradient Quiz</h1>
-      <p>Quiz setup in progress 🚧</p>
-      <p>Go to <code>/quiz</code> once ready.</p>
+    <main style={{ padding: 40 }}>
+      <h1>OpenGradient Advanced Learning Quiz</h1>
+      <p>Go to <b>/quiz</b> to start the quiz.</p>
     </main>
   );
 }
