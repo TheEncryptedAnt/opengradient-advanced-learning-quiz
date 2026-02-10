@@ -1,79 +1,45 @@
-"use client";
-
-import { useState } from "react";
-import { questions } from "./questions";
-
-export default function QuizPage() {
-  const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
-
-  const q = questions[current];
-
-  function next() {
-    if (selected === q.correctIndex) setScore(score + 1);
-    setShowAnswer(false);
-    setSelected(null);
-    setCurrent(current + 1);
-  }
-
-  if (!q) {
-    return (
-      <main style={{ padding: 40 }}>
-        <h2>Quiz Finished 🎉</h2>
-        <p>
-          Score: {score} / {questions.length}
-        </p>
-        <a href="/">Go Home</a>
-      </main>
-    );
-  }
-
+if (finished) {
   return (
     <main style={{ padding: 40, fontFamily: "sans-serif" }}>
-      <h2>{q.question}</h2>
+      <h1>Quiz Completed 🎉</h1>
 
-      {q.options.map((opt, i) => {
-        let bg = "#eee";
-        if (showAnswer) {
-          if (i === q.correctIndex) bg = "#bbf7d0";
-          else if (i === selected) bg = "#fecaca";
-        }
+      <p>
+        Your Score: <b>{score}</b> / {questions.length}
+      </p>
 
-        return (
-          <button
-            key={i}
-            onClick={() => setSelected(i)}
-            style={{
-              display: "block",
-              width: "100%",
-              marginTop: 10,
-              padding: 12,
-              background: bg,
-              border: "1px solid #ccc",
-              cursor: "pointer",
-            }}
-          >
-            {opt}
-          </button>
-        );
-      })}
+      <hr />
 
-      {!showAnswer ? (
-        <button
-          disabled={selected === null}
-          onClick={() => setShowAnswer(true)}
-          style={{ marginTop: 20 }}
+      <p>
+        📘 Learn more about OpenGradient:
+        <br />
+        <a
+          href="https://docs.opengradient.ai"
+          target="_blank"
+          rel="noreferrer"
         >
-          Check Answer
-        </button>
-      ) : (
-        <>
-          <p style={{ marginTop: 10 }}>{q.explanation}</p>
-          <button onClick={next}>Next</button>
-        </>
-      )}
+          https://docs.opengradient.ai
+        </a>
+      </p>
+
+      <hr />
+
+      <p>
+        Built by{" "}
+        <a
+          href="https://x.com/TheEncryptedAnt"
+          target="_blank"
+          rel="noreferrer"
+        >
+          @TheEncryptedAnt
+        </a>
+      </p>
+
+      <button
+        onClick={() => window.location.reload()}
+        style={{ marginTop: 20 }}
+      >
+        Restart Quiz
+      </button>
     </main>
   );
 }
