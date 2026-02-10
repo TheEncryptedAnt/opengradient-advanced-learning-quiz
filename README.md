@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/TheEncryptedAnt/opengradient-advanced-learning-quiz/main/assets/opengradient-logo.png" width="120"/>
+<img src="https://raw.githubusercontent.com/TheEncryptedAnt/opengradient-advanced-learning-quiz/main/assets/opengradient-logo.png" width="120" />
 
 # 🧠 OpenGradient Advanced Learning Quiz
 
