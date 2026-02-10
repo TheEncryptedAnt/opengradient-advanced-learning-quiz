@@ -2,262 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>OpenGradient Advanced Quiz</title>
-
+<title>OpenGradient Learning Quiz</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Inter, Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: #e5e7eb;
-    display: flex;
-    justify-content: center;
-    padding: 40px 12px;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 720px;
-    background: #020617;
-    border-radius: 16px;
-    padding: 32px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    border: 1px solid #1e293b;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-  }
-
-  .logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #6366f1, #22d3ee);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #020617;
-  }
-
-  h1 {
-    font-size: 22px;
-    margin: 0;
-  }
-
-  .progress {
-    font-size: 14px;
-    color: #94a3b8;
-    margin-bottom: 18px;
-  }
-
-  .question {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .option {
-    background: #020617;
-    border: 1px solid #334155;
-    padding: 14px 16px;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .option:hover {
-    border-color: #6366f1;
-  }
-
-  .option.correct {
-    background: #052e1b;
-    border-color: #22c55e;
-    color: #bbf7d0;
-  }
-
-  .option.wrong {
-    background: #3f1d1d;
-    border-color: #ef4444;
-    color: #fecaca;
-  }
-
-  .option.disabled {
-    pointer-events: none;
-  }
-
-  .explanation {
-    margin-top: 14px;
-    padding: 14px;
-    background: #020617;
-    border-left: 4px solid #6366f1;
-    font-size: 14px;
-    color: #cbd5f5;
-  }
-
-  button {
-    margin-top: 22px;
-    background: linear-gradient(135deg, #6366f1, #22d3ee);
-    color: #020617;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .score {
-    font-size: 26px;
-    margin-top: 20px;
-  }
-
-  .footer {
-    margin-top: 30px;
-    font-size: 13px;
-    color: #64748b;
-    text-align: center;
-  }
+body{
+  margin:0;
+  font-family: Inter, Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e3a8a, #020617 60%);
+  color:#e5e7eb;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  background:#020617;
+  padding:40px;
+  border-radius:18px;
+  border:1px solid #1e293b;
+  max-width:520px;
+  text-align:center;
+}
+.logo{
+  font-size:28px;
+  font-weight:800;
+  background:linear-gradient(90deg,#60a5fa,#818cf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+p{
+  color:#94a3b8;
+  font-size:14px;
+  margin-top:10px;
+}
+button{
+  margin-top:25px;
+  padding:14px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  background:linear-gradient(90deg,#2563eb,#4f46e5);
+  color:#fff;
+  cursor:pointer;
+}
+.footer{
+  margin-top:22px;
+  font-size:13px;
+}
+a{color:#60a5fa;text-decoration:none;font-weight:600;}
 </style>
 </head>
 
 <body>
-<div class="container">
-  <div class="header">
-    <div class="logo">OG</div>
-    <h1>OpenGradient Advanced Quiz</h1>
+  <div class="card">
+    <div class="logo">OpenGradient</div>
+    <p>
+      Community-driven learning for decentralized AI, models, data and compute.
+    </p>
+
+    <button onclick="location.href='quiz.html'">Start Quiz</button>
+
+    <div class="footer">
+      Built by  
+      <a href="https://x.com/TheEncryptedAnt" target="_blank">
+        @TheEncryptedAnt
+      </a>
+    </div>
   </div>
-
-  <div class="progress" id="progress"></div>
-  <div id="quiz"></div>
-  <button id="nextBtn" onclick="nextQuestion()" style="display:none;">Next</button>
-
-  <div class="footer">
-    Built by @TheEncryptedAnt • Learn → Verify → Build
-  </div>
-</div>
-
-<script>
-const questions = [
-  {
-    q: "What problem does OpenGradient primarily solve?",
-    o: [
-      "AI prompt engineering",
-      "Centralized AI control",
-      "Decentralized AI computation",
-      "NFT minting"
-    ],
-    c: 2,
-    e: "OpenGradient decentralizes AI computation instead of relying on centralized providers."
-  },
-  {
-    q: "Why is decentralization important for AI?",
-    o: [
-      "Lower image quality",
-      "Single point of failure",
-      "Trust minimization and resilience",
-      "More ads"
-    ],
-    c: 2,
-    e: "Decentralization improves trust, censorship resistance, and resilience."
-  },
-  {
-    q: "What role does the community play in OpenGradient?",
-    o: [
-      "Only testing",
-      "Only marketing",
-      "Active contributors and validators",
-      "No role"
-    ],
-    c: 2,
-    e: "The protocol is community-driven with active contributors."
-  },
-  {
-    q: "Which resource is shared in OpenGradient?",
-    o: [
-      "CPU only",
-      "Storage only",
-      "GPU / compute",
-      "Social tokens"
-    ],
-    c: 2,
-    e: "Compute (GPUs) are shared across the network."
-  },
-  {
-    q: "What is a key benefit for contributors?",
-    o: [
-      "Free NFTs",
-      "Speculation only",
-      "Incentives for providing compute",
-      "Ads revenue"
-    ],
-    c: 2,
-    e: "Contributors earn incentives for providing compute."
-  },
-  {
-    q: "OpenGradient aligns most with which philosophy?",
-    o: [
-      "Web2 SaaS",
-      "Closed-source AI",
-      "Open, permissionless infrastructure",
-      "Central control"
-    ],
-    c: 2,
-    e: "OpenGradient follows open, permissionless infrastructure principles."
-  }
-];
-
-let i = 0;
-let score = 0;
-
-function render() {
-  document.getElementById("progress").innerText =
-    `Question ${i + 1} / ${questions.length}`;
-
-  let q = questions[i];
-  let html = `<div class="question">${q.q}</div>`;
-  q.o.forEach((opt, idx) => {
-    html += `<div class="option" onclick="select(${idx}, this)">${opt}</div>`;
-  });
-  document.getElementById("quiz").innerHTML = html;
-  document.getElementById("nextBtn").style.display = "none";
-}
-
-function select(idx, el) {
-  let q = questions[i];
-  let opts = document.querySelectorAll(".option");
-  opts.forEach(o => o.classList.add("disabled"));
-
-  if (idx === q.c) {
-    el.classList.add("correct");
-    score++;
-  } else {
-    el.classList.add("wrong");
-    opts[q.c].classList.add("correct");
-  }
-
-  document.getElementById("quiz").innerHTML +=
-    `<div class="explanation">${q.e}</div>`;
-
-  document.getElementById("nextBtn").style.display = "inline-block";
-}
-
-function nextQuestion() {
-  i++;
-  if (i < questions.length) {
-    render();
-  } else {
-    document.getElementById("quiz").innerHTML =
-      `<div class="score">Final Score: ${score} / ${questions.length}</div>`;
-    document.getElementById("progress").innerText = "Quiz completed";
-    document.getElementById("nextBtn").style.display = "none";
-  }
-}
-
-render();
-</script>
 </body>
 </html>
