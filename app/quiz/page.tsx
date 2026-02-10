@@ -11,66 +11,68 @@ export default function QuizPage() {
 
   const q = questions[current];
 
-  function selectOption(index: number) {
-    if (showAnswer) return;
-    setSelected(index);
-    setShowAnswer(true);
-    if (index === q.correctIndex) {
-      setScore(score + 1);
-    }
-  }
-
-  function nextQuestion() {
-    setSelected(null);
+  function next() {
+    if (selected === q.correctIndex) setScore(score + 1);
     setShowAnswer(false);
+    setSelected(null);
     setCurrent(current + 1);
   }
 
-  return (
-    <main style={{ padding: 40, fontFamily: "sans-serif", maxWidth: 600 }}>
-      <h1>OpenGradient Quiz</h1>
-
-      {current < questions.length ? (
-        <>
-          <h3>{q.question}</h3>
-
-          {q.options.map((opt, i) => {
-            let bg = "#eee";
-
-            if (showAnswer) {
-              if (i === q.correctIndex) bg = "#b6f5c2";
-              else if (i === selected) bg = "#f5b6b6";
-            }
-
-            return (
-              <div
-                key={i}
-                onClick={() => selectOption(i)}
-                style={{
-                  padding: 12,
-                  marginBottom: 10,
-                  borderRadius: 6,
-                  cursor: "pointer",
-                  background: bg,
-                }}
-              >
-                {opt}
-              </div>
-            );
-          })}
-
-          {showAnswer && (
-            <>
-              <p><b>Explanation:</b> {q.explanation}</p>
-              <button onClick={nextQuestion}>Next</button>
-            </>
-          )}
-        </>
-      ) : (
-        <h2>
-          Quiz Finished 🎉 <br />
+  if (!q) {
+    return (
+      <main style={{ padding: 40 }}>
+        <h2>Quiz Finished 🎉</h2>
+        <p>
           Score: {score} / {questions.length}
-        </h2>
+        </p>
+        <a href="/">Go Home</a>
+      </main>
+    );
+  }
+
+  return (
+    <main style={{ padding: 40, fontFamily: "sans-serif" }}>
+      <h2>{q.question}</h2>
+
+      {q.options.map((opt, i) => {
+        let bg = "#eee";
+        if (showAnswer) {
+          if (i === q.correctIndex) bg = "#bbf7d0";
+          else if (i === selected) bg = "#fecaca";
+        }
+
+        return (
+          <button
+            key={i}
+            onClick={() => setSelected(i)}
+            style={{
+              display: "block",
+              width: "100%",
+              marginTop: 10,
+              padding: 12,
+              background: bg,
+              border: "1px solid #ccc",
+              cursor: "pointer",
+            }}
+          >
+            {opt}
+          </button>
+        );
+      })}
+
+      {!showAnswer ? (
+        <button
+          disabled={selected === null}
+          onClick={() => setShowAnswer(true)}
+          style={{ marginTop: 20 }}
+        >
+          Check Answer
+        </button>
+      ) : (
+        <>
+          <p style={{ marginTop: 10 }}>{q.explanation}</p>
+          <button onClick={next}>Next</button>
+        </>
       )}
     </main>
   );
