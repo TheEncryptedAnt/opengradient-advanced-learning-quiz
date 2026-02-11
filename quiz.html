@@ -86,10 +86,6 @@ h1{
   border-color:#e74c3c !important;
 }
 
-.result{
-  text-align:center;
-}
-
 .main-btn{
   margin-top:20px;
   padding:12px 22px;
@@ -141,71 +137,27 @@ h1{
 <script src="questions.js"></script>
 
 <script>
-let current=0;
-let score=0;
-let answered=false;
-const quizEl=document.getElementById("quiz");
-const progressEl=document.getElementById("progress");
+let current = 0;
+let score = 0;
+let answered = false;
 
-function loadQuestion(){
-  answered=false;
-  const q=questions[current];
-  progressEl.style.width=((current/questions.length)*100)+"%";
+const quizEl = document.getElementById("quiz");
+const progressEl = document.getElementById("progress");
 
-  quizEl.innerHTML=`
-    <div class="question">
-      Question ${current+1} of ${questions.length}<br><br>
-      ${q.question}
-    </div>
-    <div class="options">
-      ${q.options.map((opt,i)=>
-        `<button onclick="selectOption(${i},this)">${opt}</button>`
-      ).join("")}
-    </div>
-  `;
-}
-
-function selectOption(index,btn){
-  if(answered)return;
-  answered=true;
-
-  const q=questions[current];
-  const buttons=document.querySelectorAll(".options button");
-
-  buttons.forEach((b,i)=>{
-    if(i===q.correctIndex)b.classList.add("correct");
-    if(i===index && i!==q.correctIndex)b.classList.add("wrong");
-    b.disabled=true;
-  });
-
-  if(index===q.correctIndex)score++;
-
-  setTimeout(()=>{
-    nextQuestion();
-  },1200);
-}
-
-function nextQuestion(){
-  current++;
-  if(current<questions.length){
-    loadQuestion();
-  }else{
-    showResult();
-  }
-}
-function showHome() {
+function showHome(){
   current = 0;
   score = 0;
   answered = false;
+  progressEl.style.width = "0%";
 
   quizEl.innerHTML = `
-    <div style="text-align:center; padding: 30px 0;">
-      <h2>OpenGradient Advanced Learning Quiz</h2>
+    <div style="text-align:center; padding:30px 0;">
+      <h2>Ready to test your OpenGradient knowledge?</h2>
       <p style="opacity:0.8; margin:15px 0;">
-        15 ecosystem-focused questions. Test your real understanding.
+        15 ecosystem-focused questions.
       </p>
 
-      <button class="next-btn" onclick="loadQuestion()">
+      <button class="main-btn" onclick="startQuiz()">
         🚀 Start Quiz
       </button>
 
@@ -217,24 +169,80 @@ function showHome() {
     </div>
   `;
 }
-function showResult() {
+
+function startQuiz(){
+  loadQuestion();
+}
+
+function loadQuestion(){
+  answered = false;
+  const q = questions[current];
+
+  progressEl.style.width = ((current / questions.length) * 100) + "%";
+
   quizEl.innerHTML = `
-    <h2>🎉 Quiz Completed!</h2>
-    <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
-
-    <br>
-
-    <button class="next-btn" onclick="showHome()">
-      ⬅ Back to Home
-    </button>
-
-    <br><br>
-
-    <a href="https://docs.opengradient.ai/" target="_blank">
-      👉 Learn more about OpenGradient
-    </a>
+    <div class="question">
+      Question ${current+1} of ${questions.length}<br><br>
+      ${q.question}
+    </div>
+    <div class="options">
+      ${q.options.map((opt,i)=>
+        `<button onclick="selectOption(${i})">${opt}</button>`
+      ).join("")}
+    </div>
   `;
 }
+
+function selectOption(index){
+  if(answered) return;
+  answered = true;
+
+  const q = questions[current];
+  const buttons = document.querySelectorAll(".options button");
+
+  buttons.forEach((b,i)=>{
+    if(i === q.correctIndex) b.classList.add("correct");
+    if(i === index && i !== q.correctIndex) b.classList.add("wrong");
+    b.disabled = true;
+  });
+
+  if(index === q.correctIndex) score++;
+
+  setTimeout(()=>{
+    nextQuestion();
+  },1000);
+}
+
+function nextQuestion(){
+  current++;
+  if(current < questions.length){
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult(){
+  progressEl.style.width = "100%";
+
+  quizEl.innerHTML = `
+    <div style="text-align:center;">
+      <h2>🎉 Quiz Completed!</h2>
+      <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
+
+      <button class="main-btn" onclick="showHome()">
+        ⬅ Back to Home
+      </button>
+
+      <br><br>
+
+      <a href="https://docs.opengradient.ai/" target="_blank">
+        👉 Learn more about OpenGradient
+      </a>
+    </div>
+  `;
+}
+
 showHome();
 </script>
 
