@@ -121,14 +121,27 @@ h1{
 /* Result Screen */
 .result{
   text-align:center;
+  margin-top:40px;
+}
+
+.result h2{
+  font-size:34px;
+  margin-bottom:15px;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .score-number{
-  font-size:70px;
-  margin-top:20px;
+  font-size:80px;
   font-weight:bold;
   color:#00f2fe;
-  text-shadow:0 0 30px #00f2fe;
+  text-shadow:0 0 40px #00f2fe;
+}
+
+.score-sub{
+  opacity:0.7;
+  margin-top:5px;
 }
 
 .badge{
@@ -138,11 +151,13 @@ h1{
   border-radius:30px;
   border:1px solid #00f2fe;
   box-shadow:0 0 20px rgba(0,255,255,0.4);
+  font-size:14px;
+  letter-spacing:1px;
 }
 
 .main-btn{
   display:inline-block;
-  margin-top:35px;
+  margin-top:30px;
   padding:14px 40px;
   border-radius:12px;
   background:linear-gradient(90deg,#00f2fe,#8e2de2);
@@ -232,9 +247,7 @@ function selectOption(index){
 
   if(index===q.correctIndex)score++;
 
-  setTimeout(()=>{
-    nextQuestion();
-  },1200);
+  setTimeout(()=>{ nextQuestion(); },1200);
 }
 
 function nextQuestion(){
@@ -262,20 +275,14 @@ function showResult(){
 
   quizEl.innerHTML=`
     <div class="result">
-      <h2 style="font-size:32px;background:linear-gradient(90deg,#00f2fe,#8e2de2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
-        Layer Completed
-      </h2>
+      <h2>Layer Completed</h2>
 
       <div id="scoreCounter" class="score-number">0</div>
-      <div style="opacity:0.7;">/ ${questions.length}</div>
+      <div class="score-sub">${score} / ${questions.length} Correct · ${percent}%</div>
 
-      <div class="badge">
-        ${performance}
-      </div>
+      <div class="badge">${performance}</div>
 
-      <a href="index.html" class="main-btn">
-        Back to Home
-      </a>
+      <a href="index.html" class="main-btn">Back to Home</a>
 
       <div class="footer-links">
         Built by 
