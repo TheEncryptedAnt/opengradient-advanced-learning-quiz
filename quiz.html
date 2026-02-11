@@ -50,6 +50,7 @@ body::before{
   border:1px solid rgba(0,255,255,0.3);
   box-shadow:0 0 50px rgba(0,255,255,0.3);
   animation:fadeIn 0.6s ease;
+  position:relative;
 }
 
 @keyframes fadeIn{
@@ -156,6 +157,23 @@ h1{
   transform:translateY(-4px);
   box-shadow:0 0 25px #00f2fe;
 }
+
+/* Footer Links */
+.footer-links{
+  margin-top:35px;
+  font-size:14px;
+  opacity:0.8;
+}
+
+.footer-links a{
+  color:#00f2fe;
+  text-decoration:none;
+  margin:0 10px;
+}
+
+.footer-links a:hover{
+  text-shadow:0 0 10px #00f2fe;
+}
 </style>
 </head>
 
@@ -258,6 +276,17 @@ function showResult(){
       <a href="index.html" class="main-btn">
         Back to Home
       </a>
+
+      <div class="footer-links">
+        Built by 
+        <a href="https://x.com/TheEncryptedAnt" target="_blank">
+          @TheEncryptedAnt
+        </a>
+        |
+        <a href="https://docs.opengradient.ai/" target="_blank">
+          OpenGradient Docs
+        </a>
+      </div>
     </div>
   `;
 
