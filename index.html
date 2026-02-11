@@ -12,6 +12,21 @@ body{
   background:#050510;
   color:#fff;
   overflow:hidden;
+  cursor:none;
+}
+
+/* CURSOR GLOW */
+.cursor{
+  position:fixed;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:radial-gradient(circle,#00f2fe,#8e2de2);
+  pointer-events:none;
+  mix-blend-mode:screen;
+  transform:translate(-50%,-50%);
+  transition:0.05s;
+  z-index:10000;
 }
 
 /* INTRO SCREEN */
@@ -36,7 +51,7 @@ body{
 
 @keyframes logoGlow{
   from{filter:drop-shadow(0 0 5px #00f2fe);}
-  to{filter:drop-shadow(0 0 25px #8e2de2);}
+  to{filter:drop-shadow(0 0 30px #8e2de2);}
 }
 
 /* Typing Text */
@@ -59,78 +74,159 @@ body{
   50%{border-color:transparent;}
 }
 
-/* FADE OUT */
 .fade-out{
   opacity:0;
   transition:1s ease;
 }
 
-/* MAIN HOME */
+/* HOME */
 #home{
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  background:radial-gradient(circle at top left,#141e30,#243b55);
+  position:relative;
+  overflow:hidden;
 }
 
+/* Moving Grid */
+#home::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background-image: linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 20s linear infinite;
+}
+
+@keyframes gridMove{
+  from{transform:translate(0,0);}
+  to{transform:translate(-60px,-60px);}
+}
+
+/* Floating Particles */
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:#00f2fe;
+  border-radius:50%;
+  animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+}
+
+/* Neon Card */
 .card{
-  backdrop-filter:blur(25px);
-  background:rgba(255,255,255,0.06);
-  padding:60px;
-  border-radius:25px;
+  position:relative;
+  padding:80px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(30px);
   text-align:center;
-  box-shadow:0 0 50px rgba(0,255,255,0.2);
+  transition:0.4s;
+  box-shadow:0 0 40px rgba(0,255,255,0.3);
+  border:1px solid rgba(0,255,255,0.3);
 }
 
+.card:hover{
+  transform:rotateX(6deg) rotateY(-6deg);
+  box-shadow:0 0 70px rgba(0,255,255,0.8);
+}
+
+/* Border Pulse */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2,#00f2fe);
+  z-index:-1;
+  filter:blur(20px);
+  opacity:0.6;
+  animation:borderPulse 4s linear infinite;
+}
+
+@keyframes borderPulse{
+  0%{opacity:0.3;}
+  50%{opacity:0.9;}
+  100%{opacity:0.3;}
+}
+
+/* Heading */
 .card h1{
-  font-size:40px;
+  font-size:50px;
   background:linear-gradient(90deg,#00f2fe,#8e2de2);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  margin-bottom:20px;
 }
 
+/* Button */
 .start-btn{
   display:inline-block;
   margin-top:40px;
-  padding:16px 50px;
-  border-radius:12px;
+  padding:18px 60px;
+  border-radius:15px;
   background:linear-gradient(90deg,#00f2fe,#8e2de2);
   color:#000;
-  text-decoration:none;
   font-weight:bold;
+  text-decoration:none;
+  font-size:18px;
   transition:.3s;
 }
 
 .start-btn:hover{
   transform:translateY(-5px);
-  box-shadow:0 0 25px #00f2fe;
+  box-shadow:0 0 40px #00f2fe;
 }
 </style>
 </head>
 
 <body>
 
+<div class="cursor"></div>
+
 <!-- INTRO -->
 <div id="intro">
   <img src="opengradient-logo.png" class="intro-logo">
-  <div class="typing">Initializing On-Chain Layer...</div>
+  <div class="typing">Initializing On-Chain Intelligence...</div>
 </div>
 
 <!-- HOME -->
 <div id="home" style="display:none;">
   <div class="card">
     <h1>OpenGradient</h1>
-    <p style="margin-top:20px;opacity:.8;">
-      Real ecosystem understanding starts here.
-    </p>
+    <p style="opacity:.8;">Explore the On-Chain Intelligence Layer</p>
     <a href="quiz.html" class="start-btn">Enter →</a>
   </div>
 </div>
 
 <script>
 
-/* AUTO TRANSITION AFTER 4s */
+/* Cursor Glow */
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",(e)=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
+});
+
+/* Floating Particles */
+for(let i=0;i<25;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.top=Math.random()*100+"%";
+  p.style.animationDelay=Math.random()*5+"s";
+  document.getElementById("home").appendChild(p);
+}
+
+/* Intro Transition */
 setTimeout(()=>{
   const intro=document.getElementById('intro');
   intro.classList.add('fade-out');
