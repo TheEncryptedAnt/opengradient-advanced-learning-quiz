@@ -6,99 +6,146 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+
 body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:radial-gradient(circle at top left,#141e30,#243b55);
+  background:#050510;
   color:#fff;
-  min-height:100vh;
+  overflow:hidden;
+}
+
+/* Moving Grid Background */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background-image: linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 20s linear infinite;
+  z-index:-1;
+}
+
+@keyframes gridMove{
+  from{transform:translate(0,0);}
+  to{transform:translate(-60px,-60px);}
+}
+
+/* Container */
+.container{
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-.container{
-  max-width:750px;
-  padding:40px;
-  background:rgba(255,255,255,0.06);
+/* Neon Card */
+.card{
+  width:850px;
+  padding:60px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.05);
   backdrop-filter:blur(25px);
-  border-radius:18px;
-  box-shadow:0 25px 60px rgba(0,0,0,0.4);
+  border:1px solid rgba(0,255,255,0.3);
+  box-shadow:0 0 50px rgba(0,255,255,0.3);
+  animation:fadeIn 0.6s ease;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-.logo img{
-  width:42px;
+h1{
+  font-size:28px;
+  margin-bottom:25px;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
+/* Progress Bar */
 .progress-bar{
-  height:5px;
-  background:rgba(255,255,255,0.15);
+  height:6px;
+  background:rgba(255,255,255,0.1);
   border-radius:10px;
-  margin:20px 0;
   overflow:hidden;
+  margin-bottom:30px;
 }
 
 .progress{
   height:100%;
-  background:linear-gradient(90deg,#00f5a0,#00d9f5);
   width:0%;
-  transition:0.4s ease;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2);
+  box-shadow:0 0 20px #00f2fe;
+  transition:0.4s;
 }
 
+/* Question */
 .question{
-  font-size:19px;
-  margin:25px 0;
+  font-size:20px;
+  margin-bottom:25px;
 }
 
+/* Options */
 .options button{
   width:100%;
-  padding:14px;
-  margin:8px 0;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.2);
-  background:rgba(255,255,255,0.08);
+  padding:15px;
+  margin:10px 0;
+  border-radius:12px;
+  border:1px solid rgba(0,255,255,0.3);
+  background:rgba(255,255,255,0.05);
   color:#fff;
   font-size:15px;
   cursor:pointer;
+  transition:0.3s;
 }
 
 .options button:hover{
-  background:rgba(255,255,255,0.15);
+  background:rgba(0,255,255,0.1);
+  box-shadow:0 0 15px #00f2fe;
+  transform:translateY(-2px);
 }
 
 .correct{
-  background:#1f4d2f !important;
-  border-color:#2ecc71 !important;
+  background:#00ff99 !important;
+  color:#000;
 }
 
 .wrong{
-  background:#4d1f2a !important;
-  border-color:#e74c3c !important;
+  background:#ff3c6f !important;
+}
+
+/* Result Screen */
+.result{
+  text-align:center;
+}
+
+.result h2{
+  font-size:30px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .main-btn{
-  margin-top:20px;
-  padding:12px 22px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(90deg,#00f5a0,#00d9f5);
+  display:inline-block;
+  margin-top:30px;
+  padding:14px 40px;
+  border-radius:12px;
+  background:linear-gradient(90deg,#00f2fe,#8e2de2);
   color:#000;
-  font-weight:600;
+  font-weight:bold;
+  text-decoration:none;
   cursor:pointer;
+  transition:.3s;
 }
 
-.footer{
-  margin-top:30px;
-  text-align:center;
-  font-size:13px;
-  opacity:0.8;
+.main-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px #00f2fe;
 }
 </style>
 </head>
@@ -106,19 +153,12 @@ body{
 <body>
 
 <div class="container">
-  <div class="logo">
-    <img src="opengradient-logo.png">
-    <h2>OpenGradient Advanced Learning Quiz</h2>
-  </div>
-
-  <div class="progress-bar">
-    <div class="progress" id="progress"></div>
-  </div>
-
-  <div id="quiz"></div>
-
-  <div class="footer">
-    Built by @TheEncryptedAnt
+  <div class="card">
+    <h1>OpenGradient Knowledge Layer</h1>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div id="quiz"></div>
   </div>
 </div>
 
@@ -139,7 +179,7 @@ function loadQuestion(){
 
   quizEl.innerHTML=`
     <div class="question">
-      Question ${current+1} of ${questions.length}<br><br>
+      Question ${current+1} / ${questions.length}<br><br>
       ${q.question}
     </div>
     <div class="options">
@@ -165,7 +205,9 @@ function selectOption(index){
 
   if(index===q.correctIndex)score++;
 
-  setTimeout(()=>{nextQuestion();},1000);
+  setTimeout(()=>{
+    nextQuestion();
+  },1200);
 }
 
 function nextQuestion(){
@@ -178,19 +220,17 @@ function nextQuestion(){
 }
 
 function showResult(){
+  progressEl.style.width="100%";
+
   quizEl.innerHTML=`
-    <h2>🎉 Quiz Completed!</h2>
-    <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
+    <div class="result">
+      <h2>Layer Completed</h2>
+      <p>You scored <strong>${score}</strong> / ${questions.length}</p>
 
-    <button class="main-btn" onclick="window.location.href='index.html'">
-      ⬅ Back to Home
-    </button>
-
-    <br><br>
-
-    <a href="https://docs.opengradient.ai/" target="_blank" style="color:#00f5d4;">
-      Learn more from OpenGradient Docs →
-    </a>
+      <a href="index.html" class="main-btn">
+        Back to Home
+      </a>
+    </div>
   `;
 }
 
