@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>OpenGradient Quiz</title>
+<title>OpenGradient</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -10,122 +10,123 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
 }
 
 body{
-  font-family:'Segoe UI',sans-serif;
   height:100vh;
   overflow:hidden;
   color:#fff;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(-45deg,#1e1e2f,#302b63,#24243e,#1f1c2c);
-  background-size:400% 400%;
-  animation:gradientMove 12s ease infinite;
+  background:#0f0f1a;
 }
 
-/* Moving Gradient */
-@keyframes gradientMove{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-/* Floating particles */
-.particle{
+/* Animated Web3 Grid Background */
+body::before{
+  content:"";
   position:absolute;
-  width:6px;
-  height:6px;
-  background:#00f2fe;
-  border-radius:50%;
-  opacity:0.5;
-  animation:float 10s linear infinite;
+  width:200%;
+  height:200%;
+  background:
+  linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 25s linear infinite;
+  z-index:0;
 }
 
-@keyframes float{
-  0%{transform:translateY(100vh) scale(0);}
-  100%{transform:translateY(-10vh) scale(1);}
+@keyframes gridMove{
+  from{transform:translateY(0);}
+  to{transform:translateY(-60px);}
+}
+
+/* Glow Orbs */
+.glow{
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle,#00f2fe33,transparent 70%);
+  filter:blur(100px);
+  animation:moveGlow 12s infinite alternate ease-in-out;
+}
+
+.glow2{
+  top:20%;
+  left:60%;
+  animation-delay:4s;
+}
+
+@keyframes moveGlow{
+  from{transform:translate(-50px,-50px);}
+  to{transform:translate(50px,50px);}
 }
 
 /* Glass Card */
 .card{
-  backdrop-filter:blur(20px);
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.2);
-  padding:50px;
-  border-radius:20px;
+  position:relative;
+  z-index:1;
+  backdrop-filter:blur(25px);
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  padding:60px;
+  border-radius:22px;
   text-align:center;
   max-width:750px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.6);
-  animation:fadeIn 1.2s ease;
+  box-shadow:0 0 40px rgba(0,255,255,0.15);
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.logo img{
-  width:70px;
-  margin-bottom:15px;
-}
-
+/* Title */
 h1{
-  font-size:34px;
-  background:linear-gradient(90deg,#00f2fe,#4facfe);
+  font-size:42px;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#00f2fe,#4facfe,#8e2de2);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:pulse 3s infinite;
 }
 
-@keyframes pulse{
-  0%,100%{opacity:1;}
-  50%{opacity:0.8;}
+.tagline{
+  margin-top:12px;
+  font-size:15px;
+  opacity:0.75;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
-.subtitle{
-  margin-top:10px;
-  opacity:0.85;
-  font-size:16px;
-}
-
+/* Main Text */
 .description{
-  margin-top:25px;
+  margin-top:30px;
+  font-size:18px;
   line-height:1.6;
-  opacity:0.9;
+  font-weight:500;
 }
 
-/* Start Button */
+/* Button */
 .start-btn{
   display:inline-block;
-  margin-top:40px;
-  padding:16px 40px;
+  margin-top:45px;
+  padding:18px 48px;
   font-size:18px;
-  border-radius:12px;
+  border-radius:14px;
   background:linear-gradient(90deg,#00f2fe,#4facfe);
   color:#000;
   text-decoration:none;
   font-weight:bold;
   transition:0.3s;
+  box-shadow:0 0 20px rgba(0,242,254,0.5);
 }
 
 .start-btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 15px 35px rgba(0,242,254,0.5);
+  transform:translateY(-6px);
+  box-shadow:0 0 35px rgba(0,242,254,0.9);
 }
 
-/* Leaderboard preview */
-.leaderboard{
-  margin-top:35px;
-  font-size:14px;
-  opacity:0.8;
-}
-
+/* Minimal Footer */
 .footer{
-  margin-top:30px;
+  margin-top:40px;
   font-size:13px;
-  opacity:0.7;
+  opacity:0.6;
 }
 
 .footer a{
@@ -137,49 +138,35 @@ h1{
 
 <body>
 
-<!-- Floating particles -->
-<script>
-for(let i=0;i<20;i++){
-  const p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(5+Math.random()*10)+"s";
-  document.body.appendChild(p);
-}
-</script>
+<div class="glow"></div>
+<div class="glow glow2"></div>
 
 <div class="card">
 
-  <div class="logo">
-    <img src="opengradient-logo.png">
-  </div>
+  <h1>OpenGradient</h1>
 
-  <h1>OpenGradient Quiz</h1>
-
-  <div class="subtitle">
-    Test Your Real Ecosystem Understanding
+  <div class="tagline">
+    Learn. Test. Contribute.
   </div>
 
   <div class="description">
-    Explore how well you understand decentralization,
-    contribution culture, and OpenGradient’s long-term vision.
+    This isn’t just a quiz.<br>
+    It’s a signal check.<br><br>
+    How well do you really understand the ecosystem?
   </div>
 
-  <a href="quiz.html" class="start-btn">🚀 Start</a>
-
-  <div class="leaderboard">
-    🏆 Highest Score: 15 / 15<br>
-    🎯 Can you beat it?
-  </div>
+  <a href="quiz.html" class="start-btn">
+    Enter →
+  </a>
 
   <div class="footer">
     Built by 
     <a href="https://x.com/TheEncryptedAnt" target="_blank">
       @TheEncryptedAnt
     </a>
-    <br><br>
+    ·
     <a href="https://docs.opengradient.ai/" target="_blank">
-      Learn more →
+      Docs
     </a>
   </div>
 
