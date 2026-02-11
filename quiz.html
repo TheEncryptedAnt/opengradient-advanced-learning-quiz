@@ -193,28 +193,49 @@ function nextQuestion(){
     showResult();
   }
 }
+function showHome() {
+  current = 0;
+  score = 0;
+  answered = false;
 
-function showResult(){
-  progressEl.style.width="100%";
-  quizEl.innerHTML=`
-    <div class="result">
-      <h2>Quiz Completed 🎉</h2>
-      <p>You scored <strong>${score}</strong> / ${questions.length}</p>
+  quizEl.innerHTML = `
+    <div style="text-align:center; padding: 30px 0;">
+      <h2>OpenGradient Advanced Learning Quiz</h2>
+      <p style="opacity:0.8; margin:15px 0;">
+        15 ecosystem-focused questions. Test your real understanding.
+      </p>
 
-      <button class="main-btn" onclick="location.reload()">Back to Home</button>
+      <button class="next-btn" onclick="loadQuestion()">
+        🚀 Start Quiz
+      </button>
 
-      <br>
+      <br><br>
 
       <a href="https://docs.opengradient.ai/" target="_blank">
-        <button class="main-btn" style="margin-top:15px;">
-          Learn More About OpenGradient
-        </button>
+        Learn more from OpenGradient Docs →
       </a>
     </div>
   `;
 }
+function showResult() {
+  quizEl.innerHTML = `
+    <h2>🎉 Quiz Completed!</h2>
+    <p>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong></p>
 
-loadQuestion();
+    <br>
+
+    <button class="next-btn" onclick="showHome()">
+      ⬅ Back to Home
+    </button>
+
+    <br><br>
+
+    <a href="https://docs.opengradient.ai/" target="_blank">
+      👉 Learn more about OpenGradient
+    </a>
+  `;
+}
+showHome();
 </script>
 
 </body>
