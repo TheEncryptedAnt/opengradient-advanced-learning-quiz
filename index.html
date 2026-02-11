@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top left, #1f1c2c, #302b63, #24243e);
+  background: radial-gradient(circle at 20% 20%, #302b63, #24243e 60%);
   color: #fff;
   min-height: 100vh;
   display: flex;
@@ -17,72 +17,93 @@ body {
   align-items: center;
 }
 
-/* Glass Card */
+/* Main Card */
 .card {
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.08);
+  max-width: 820px;
+  padding: 70px 60px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  backdrop-filter: blur(25px);
   border: 1px solid rgba(255,255,255,0.15);
-  max-width: 720px;
-  padding: 60px 50px;
-  border-radius: 22px;
-  box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
   text-align: center;
+  position: relative;
+}
+
+/* Glow effect */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0,242,254,0.4), transparent);
+  filter: blur(60px);
+  z-index: 0;
 }
 
 /* Logo */
 .logo img {
-  width: 65px;
-  margin-bottom: 20px;
+  width: 75px;
+  margin-bottom: 25px;
 }
 
-/* Title */
+/* Headline */
 h1 {
-  font-size: 34px;
-  margin-bottom: 18px;
+  font-size: 42px;
+  margin-bottom: 20px;
+  font-weight: 700;
   background: linear-gradient(90deg, #00f2fe, #4facfe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Clean Description */
-.description {
-  font-size: 17px;
-  line-height: 1.7;
+/* Sub text */
+.tagline {
+  font-size: 20px;
   opacity: 0.9;
-  max-width: 520px;
+  margin-bottom: 25px;
+}
+
+/* Small line */
+.mini {
+  font-size: 15px;
+  opacity: 0.7;
+  max-width: 500px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 /* Button */
 .start-btn {
   display: inline-block;
   margin-top: 45px;
-  padding: 18px 42px;
+  padding: 18px 48px;
   font-size: 18px;
-  border-radius: 14px;
+  border-radius: 16px;
   background: linear-gradient(90deg, #00f2fe, #4facfe);
   color: #000;
   text-decoration: none;
   font-weight: 600;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .start-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgba(0,242,254,0.4);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(0,242,254,0.5);
 }
 
 /* Footer */
 .footer {
-  margin-top: 50px;
+  margin-top: 60px;
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .footer a {
   color: #00f2fe;
   text-decoration: none;
-  font-weight: 500;
 }
 </style>
 </head>
@@ -97,14 +118,16 @@ h1 {
 
   <h1>OpenGradient Quiz</h1>
 
-  <div class="description">
-    Ready to test your real ecosystem understanding?
-    <br><br>
-    Explore how well you understand decentralization, contribution culture,
-    and OpenGradient’s vision.
+  <div class="tagline">
+    Ready to test your ecosystem intelligence?
   </div>
 
-  <a href="quiz.html" class="start-btn">🚀 Start</a>
+  <div class="mini">
+    Discover how well you understand decentralization,
+    contribution culture, and OpenGradient’s long-term vision.
+  </div>
+
+  <a href="quiz.html" class="start-btn">🚀 Start Challenge</a>
 
   <div class="footer">
     Built by 
@@ -113,7 +136,7 @@ h1 {
     </a>
     <br><br>
     <a href="https://docs.opengradient.ai/" target="_blank">
-      Explore OpenGradient Docs →
+      Explore Documentation →
     </a>
   </div>
 
