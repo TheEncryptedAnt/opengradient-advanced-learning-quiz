@@ -2,48 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>OpenGradient Advanced Learning Quiz</title>
+<title>OpenGradient Quiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top left,#1f1c2c,#302b63,#24243e);
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top left,#141e30,#243b55);
   color:#fff;
 }
 
 .container{
-  max-width:800px;
+  max-width:750px;
   margin:60px auto;
   padding:40px;
   background:rgba(255,255,255,0.06);
   backdrop-filter:blur(25px);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.4);
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.4);
 }
 
 .logo{
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-bottom:25px;
+  gap:10px;
+  margin-bottom:20px;
 }
 
 .logo img{
-  width:45px;
-  height:45px;
+  width:42px;
 }
 
 h1{
+  font-size:22px;
   margin:0;
-  font-size:24px;
 }
 
 .progress-bar{
-  height:6px;
-  background:rgba(255,255,255,0.1);
+  height:5px;
+  background:rgba(255,255,255,0.15);
   border-radius:10px;
   margin:20px 0;
   overflow:hidden;
@@ -57,15 +55,15 @@ h1{
 }
 
 .question{
-  font-size:20px;
+  font-size:19px;
   margin:25px 0;
 }
 
 .options button{
   width:100%;
   padding:14px;
-  margin:10px 0;
-  border-radius:12px;
+  margin:8px 0;
+  border-radius:10px;
   border:1px solid rgba(255,255,255,0.2);
   background:rgba(255,255,255,0.08);
   color:#fff;
@@ -76,7 +74,6 @@ h1{
 
 .options button:hover{
   background:rgba(255,255,255,0.15);
-  transform:translateY(-2px);
 }
 
 .correct{
@@ -89,17 +86,13 @@ h1{
   border-color:#e74c3c !important;
 }
 
-.explanation{
-  margin-top:20px;
-  padding:15px;
-  border-radius:10px;
-  background:rgba(0,0,0,0.3);
-  font-size:14px;
+.result{
+  text-align:center;
 }
 
-.next-btn{
+.main-btn{
   margin-top:20px;
-  padding:10px 18px;
+  padding:12px 22px;
   border:none;
   border-radius:8px;
   background:linear-gradient(90deg,#00f5a0,#00d9f5);
@@ -108,20 +101,12 @@ h1{
   cursor:pointer;
 }
 
-.next-btn:hover{
+.main-btn:hover{
   opacity:0.9;
 }
 
-.result{
-  text-align:center;
-}
-
-.result h2{
-  margin-bottom:10px;
-}
-
 .footer{
-  margin-top:35px;
+  margin-top:30px;
   text-align:center;
   font-size:13px;
   opacity:0.8;
@@ -130,7 +115,6 @@ h1{
 .footer a{
   color:#00f5d4;
   text-decoration:none;
-  font-weight:600;
 }
 </style>
 </head>
@@ -166,7 +150,6 @@ const progressEl=document.getElementById("progress");
 function loadQuestion(){
   answered=false;
   const q=questions[current];
-
   progressEl.style.width=((current/questions.length)*100)+"%";
 
   quizEl.innerHTML=`
@@ -179,7 +162,6 @@ function loadQuestion(){
         `<button onclick="selectOption(${i},this)">${opt}</button>`
       ).join("")}
     </div>
-    <div id="explanation"></div>
   `;
 }
 
@@ -198,13 +180,9 @@ function selectOption(index,btn){
 
   if(index===q.correctIndex)score++;
 
-  document.getElementById("explanation").innerHTML=`
-    <div class="explanation">
-      ${q.explanation}
-      <br><br>
-      <button class="next-btn" onclick="nextQuestion()">Next</button>
-    </div>
-  `;
+  setTimeout(()=>{
+    nextQuestion();
+  },1200);
 }
 
 function nextQuestion(){
@@ -222,8 +200,16 @@ function showResult(){
     <div class="result">
       <h2>Quiz Completed 🎉</h2>
       <p>You scored <strong>${score}</strong> / ${questions.length}</p>
+
+      <button class="main-btn" onclick="location.reload()">Back to Home</button>
+
       <br>
-      <button class="next-btn" onclick="location.reload()">Restart Quiz</button>
+
+      <a href="https://docs.opengradient.ai/" target="_blank">
+        <button class="main-btn" style="margin-top:15px;">
+          Learn More About OpenGradient
+        </button>
+      </a>
     </div>
   `;
 }
