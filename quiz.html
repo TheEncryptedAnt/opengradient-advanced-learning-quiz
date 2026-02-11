@@ -122,17 +122,26 @@ h1{
   text-align:center;
 }
 
-.result h2{
-  font-size:30px;
-  margin-bottom:20px;
-  background:linear-gradient(90deg,#00f2fe,#8e2de2);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.score-number{
+  font-size:70px;
+  margin-top:20px;
+  font-weight:bold;
+  color:#00f2fe;
+  text-shadow:0 0 30px #00f2fe;
+}
+
+.badge{
+  margin-top:25px;
+  padding:12px 30px;
+  display:inline-block;
+  border-radius:30px;
+  border:1px solid #00f2fe;
+  box-shadow:0 0 20px rgba(0,255,255,0.4);
 }
 
 .main-btn{
   display:inline-block;
-  margin-top:30px;
+  margin-top:35px;
   padding:14px 40px;
   border-radius:12px;
   background:linear-gradient(90deg,#00f2fe,#8e2de2);
@@ -222,16 +231,51 @@ function nextQuestion(){
 function showResult(){
   progressEl.style.width="100%";
 
+  let percent = Math.round((score / questions.length) * 100);
+  let performance = "";
+
+  if(percent >= 80){
+    performance = "Elite Layer Builder";
+  } else if(percent >= 50){
+    performance = "Signal Contributor";
+  } else {
+    performance = "Layer Explorer";
+  }
+
   quizEl.innerHTML=`
     <div class="result">
-      <h2>Layer Completed</h2>
-      <p>You scored <strong>${score}</strong> / ${questions.length}</p>
+      <h2 style="font-size:32px;background:linear-gradient(90deg,#00f2fe,#8e2de2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+        Layer Completed
+      </h2>
+
+      <div id="scoreCounter" class="score-number">0</div>
+      <div style="opacity:0.7;">/ ${questions.length}</div>
+
+      <div class="badge">
+        ${performance}
+      </div>
 
       <a href="index.html" class="main-btn">
         Back to Home
       </a>
     </div>
   `;
+
+  animateScore();
+}
+
+function animateScore(){
+  let count = 0;
+  const counter = document.getElementById("scoreCounter");
+
+  const interval = setInterval(()=>{
+    if(count < score){
+      count++;
+      counter.innerText = count;
+    } else {
+      clearInterval(interval);
+    }
+  },100);
 }
 
 loadQuestion();
