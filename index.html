@@ -1,124 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>OpenGradient Advanced Learning Quiz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>OpenGradient Advanced Learning Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top left, #1f1c2c, #302b63, #24243e);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .card {
-      background: #ffffff;
-      color: #111;
-      max-width: 700px;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-      text-align: center;
-    }
+/* Glass Card */
+.card {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  max-width: 750px;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  text-align: center;
+}
 
-    .logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
+/* Logo */
+.logo img {
+  width: 70px;
+  margin-bottom: 15px;
+}
 
-    .logo img {
-      width: 60px;
-      height: 60px;
-    }
+/* Title */
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 30px;
-    }
+.subtitle {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
 
-    .subtitle {
-      margin-top: 12px;
-      font-size: 17px;
-      color: #444;
-    }
+.description {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
 
-    .description {
-      margin: 25px 0;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #333;
-    }
+/* Button */
+.start-btn {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 16px 38px;
+  font-size: 18px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    .start-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 14px 30px;
-      font-size: 18px;
-      border-radius: 10px;
-      background: #6a11cb;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,242,254,0.4);
+}
 
-    .start-btn:hover {
-      opacity: 0.9;
-    }
+/* Footer */
+.footer {
+  margin-top: 40px;
+  font-size: 14px;
+  opacity: 0.8;
+}
 
-    .footer {
-      margin-top: 35px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .footer a {
-      color: #2575fc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+.footer a {
+  color: #00f2fe;
+  text-decoration: none;
+  font-weight: bold;
+}
+</style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="logo">
-      <img src="opengradient-logo.png" alt="OpenGradient Logo" />
-      <h1>OpenGradient Quiz</h1>
-    </div>
 
-    <div class="subtitle">
-      Community-Driven Learning · Verify Knowledge · Build Signal
-    </div>
+<div class="card">
 
-    <div class="description">
-      This interactive quiz is designed to help community members understand
-      OpenGradient’s vision, products, contribution philosophy, and ecosystem.
-      <br /><br />
-      Questions range from beginner-friendly to advanced, with instant feedback
-      and explanations to reinforce learning.
-    </div>
-
-    <a href="quiz.html" class="start-btn">🚀 Start Quiz</a>
-
-    <div class="footer">
-      Built by
-      <a href="https://x.com/TheEncryptedAnt" target="_blank">
-        @TheEncryptedAnt
-      </a>
-      <br /><br />
-      <a href="https://docs.opengradient.ai/" target="_blank">
-        Learn more from OpenGradient Docs →
-      </a>
-    </div>
+  <div class="logo">
+    <img src="opengradient-logo.png" alt="OpenGradient Logo">
   </div>
+
+  <h1>OpenGradient Advanced Learning Quiz</h1>
+
+  <div class="subtitle">
+    Community-Driven Learning · Verify Knowledge · Build Signal
+  </div>
+
+  <div class="description">
+    Test your understanding of OpenGradient’s ecosystem, decentralization model,
+    contribution framework, and AI philosophy.
+    <br><br>
+    15 mixed-difficulty questions with instant feedback and score tracking.
+  </div>
+
+  <a href="quiz.html" class="start-btn">🚀 Start Quiz</a>
+
+  <div class="footer">
+    Built by 
+    <a href="https://x.com/TheEncryptedAnt" target="_blank">
+      @TheEncryptedAnt
+    </a>
+    <br><br>
+    <a href="https://docs.opengradient.ai/" target="_blank">
+      Learn more from OpenGradient Docs →
+    </a>
+  </div>
+
+</div>
+
 </body>
 </html>
